@@ -204,6 +204,19 @@ var taskStatusChangeHandler = function(event) {
 var saveTasks = function() {
   localStorage.setItem("tasks", JSON.stringify(tasks));
 }
+//get task intems from localStorage, then convert these tasks from the string format back into an array of objects
+//this iterates through a tasks array and creates task elements on the page from it
+var loadTasks = function() {
+  var savedTasks = localStorage.getItem("tasks");
+  if (!savedTasks) {
+    return false;
+  }
+  savedTasks = JSON.parse(savedTasks);
+  for (var i = 0; i < savedTasks.length; i++) {
+    // pass each task object into the `createTaskEl()` function
+    createTaskEl(savedTasks[i]);
+  }
+}
 
 
 pageContentEl.addEventListener("change", taskStatusChangeHandler);
